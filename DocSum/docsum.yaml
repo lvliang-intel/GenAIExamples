@@ -35,7 +35,7 @@ opea_micro_services:
     endpoint: /v1/chat/completions
     environment:
       TGI_LLM_ENDPOINT: ${TGI_LLM_ENDPOINT}
-      HF_TOKEN: ${HF_TOKEN}
+      HUGGINGFACEHUB_API_TOKEN: ${HF_TOKEN}
   ui:
     host: ${UI_SERVICE_HOST_IP}
     ports:
