@@ -167,6 +167,11 @@ data:
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
+
+            proxy_buffering off;
+            proxy_cache off;
+            proxy_request_buffering off;
+            gzip off;
         }
 
         location /v1/dataprep {
@@ -833,7 +838,7 @@ spec:
             runAsUser: 1000
             seccompProfile:
               type: RuntimeDefault
-          image: "ghcr.io/huggingface/text-embeddings-inference:cpu-1.5"
+          image: "ghcr.io/huggingface/tei-gaudi:latest"
           imagePullPolicy: IfNotPresent
           args:
             - "--auto-truncate"
@@ -869,7 +874,8 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
           resources:
-            {}
+            limits:
+              habana.ai/gaudi: 1
       volumes:
         - name: model-volume
           emptyDir: {}
